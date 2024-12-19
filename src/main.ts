@@ -139,9 +139,9 @@ async function bootstrap() {
   ServerUP.app = app;
   const server = ServerUP[httpServer.TYPE];
 
-  eventManager.init(server);
-
-  server.listen(httpServer.PORT, () => logger.log(httpServer.TYPE.toUpperCase() + ' - ON: ' + httpServer.PORT));
+  // Aqui ajustamos para usar process.env.PORT antes de httpServer.PORT
+  const port = process.env.PORT || httpServer.PORT || 8080;
+  server.listen(port, () => logger.log(httpServer.TYPE.toUpperCase() + ' - ON: ' + port));
 
   initWA();
 
